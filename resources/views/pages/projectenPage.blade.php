@@ -88,7 +88,7 @@
                                 @endphp
 
                                 <div class="mb-52 mt-24" style="transform:scale(1.2, 1.2)">
-                                    <x-bigSlider
+                                    <x-bigslider
                                         images="{{ implode(',', $images) }}"
                                     />
                                 </div>
