@@ -1,0 +1,35 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+.font-calibri { 
+  font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif; 
+}
+
+.font-cambria { 
+  font-family: Cambria,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif; 
+}
+
+#image-logo {
+    -moz-transition: height 0.5s ease;
+    -webkit-transition: height 0.5s ease;
+    -o-transition: height 0.5s ease;
+    transition: height 0.5s ease;
+}
+
+#menu {
+    -moz-transition: top 0.5s ease;
+    -webkit-transition: top 0.5s ease;
+    -o-transition: top 0.5s ease;
+    transition: top 0.5s ease;
+}
+
+.buttonx {
+    background-color:#54534a; 
+    color:white;
+}
+
+.buttonx:hover {
+    background-color:#888781; 
+    color:white;
+}
