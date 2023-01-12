@@ -25,6 +25,27 @@
                                 </h1>
                             @endif
 
+                            <!--h2-->
+                            @if($component->name == "h2")
+                                <h2 class="font-bold mt-4 mb-4 text-4xl sm:text-2xl md:text-4xl text-left">
+                                    {{ $component->title }}
+                                </h2>
+                            @endif
+
+                            <!--h3-->
+                            @if($component->name == "h3")
+                                <h3 class="font-bold mt-4 mb-4 text-4xl sm:text-2xl md:text-4xl text-left">
+                                    {{ $component->title }}
+                                </h3>
+                            @endif
+
+                            <!--h4-->
+                            @if($component->name == "h4")
+                                <h4 class="font-bold mt-4 mb-4 text-4xl sm:text-2xl md:text-4xl text-left">
+                                    {{ $component->title }}
+                                </h4>
+                            @endif
+
                             <!--text-->
                             @if($component->name == "text")
                                 <div class="mt-4">

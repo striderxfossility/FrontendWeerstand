@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Components;
 use App\Services\DefaultService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Component;
 use App\Models\Components\BigSlider;
 
 class BigSliderController extends Controller
