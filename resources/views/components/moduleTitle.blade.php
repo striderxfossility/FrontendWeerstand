@@ -16,7 +16,7 @@
 
     @if($textA != '' && $textB == '')
         <div class="grid grid-cols-1 pt-4">
-            <p class="pt-8 text-xl">{!! $textA !!}}</p>
+            <p class="pt-8 text-xl">{!! $textA !!}</p>
         </div>
     @endif
 
