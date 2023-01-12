@@ -665,6 +665,9 @@ select {
 .-ml-px {
   margin-left: -1px;
 }
+.mt-40 {
+  margin-top: 10rem;
+}
 .mt-20 {
   margin-top: 5rem;
 }
@@ -734,9 +737,6 @@ select {
 .-mt-px {
   margin-top: -1px;
 }
-.mt-40 {
-  margin-top: 10rem;
-}
 .block {
   display: block;
 }
@@ -785,6 +785,9 @@ select {
 .h-8 {
   height: 2rem;
 }
+.h-20 {
+  height: 5rem;
+}
 .h-32 {
   height: 8rem;
 }
@@ -824,6 +827,9 @@ select {
 .w-14 {
   width: 3.5rem;
 }
+.w-20 {
+  width: 5rem;
+}
 .w-6 {
   width: 1.5rem;
 }
@@ -853,11 +859,11 @@ select {
 .grid-flow-col {
   grid-auto-flow: column;
 }
-.grid-cols-3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
 .grid-cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -880,11 +886,11 @@ select {
 .justify-items-center {
   justify-items: center;
 }
-.gap-7 {
-  gap: 1.75rem;
-}
 .gap-20 {
   gap: 5rem;
+}
+.gap-7 {
+  gap: 1.75rem;
 }
 .gap-4 {
   gap: 1rem;
@@ -967,6 +973,10 @@ select {
 .bg-gray-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
+}
+.bg-slate-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(100 116 139 / var(--tw-bg-opacity));
 }
 .bg-fixed {
   background-attachment: fixed;
@@ -1267,6 +1277,10 @@ select {
 .hover\:bg-gray-100:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+}
+.hover\:bg-slate-400:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(148 163 184 / var(--tw-bg-opacity));
 }
 .hover\:text-gray-500:hover {
   --tw-text-opacity: 1;

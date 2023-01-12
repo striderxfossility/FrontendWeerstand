@@ -1,7 +1,13 @@
 @php($imgArr = explode(',', $images))
 
 <div>
-    <div v-if="images.length > 0">
+    <div class="relative">
+        <div onclick="Left()" style="left:-100px; z-index:3;" class="cursor-pointer absolute h-20 w-20 bg-slate-500 hover:bg-slate-400 text-white text-center">
+            <i style="font-size:40px; margin-top: 18px;" class="fa-solid fa-chevron-left"></i>
+        </div>
+        <div onclick="Right()" style="z-index:3; right: -105px;" class="cursor-pointer absolute h-20 w-20 bg-slate-500 hover:bg-slate-400 text-white text-center">
+            <i style="font-size:40px;margin-top: 18px; " class="fa-solid fa-chevron-right"></i>
+        </div>
         @if(isset($router))
             @foreach ($imgArr as $key => $image)
                 <div class="mt-32" id="image-{{ $key }}" style="display:none; transform:scale(1.2, 1.2)">
@@ -34,16 +40,50 @@
 <script>
     let image = 0
 
-    setInterval(Right, 4000)
+    let intervalF = setInterval(Right, 4000)
 
-    Right()
+    Right_Auto()
 
-    function Right()
+    function Right_Auto()
     {
         if(image + 1 >= {{ count($imgArr) }}) {
             image = 0
         } else {
             image = image + 1
+        }
+
+        for (let index = 0; index < {{ count($imgArr) }}; index++) {
+            document.getElementById('image-' + index).style.display = 'none';
+        }
+
+        document.getElementById('image-' + image).style.display = 'block';
+    }
+
+    function Right()
+    {
+        clearInterval( intervalF );
+
+        if(image + 1 >= {{ count($imgArr) }}) {
+            image = 0
+        } else {
+            image = image + 1
+        }
+
+        for (let index = 0; index < {{ count($imgArr) }}; index++) {
+            document.getElementById('image-' + index).style.display = 'none';
+        }
+
+        document.getElementById('image-' + image).style.display = 'block';
+    }
+
+    function Left()
+    {
+        clearInterval( intervalF );
+
+        if(image - 1 <= 0) {
+            image = {{ count($imgArr) }} - 1
+        } else {
+            image = image - 1
         }
 
         for (let index = 0; index < {{ count($imgArr) }}; index++) {
