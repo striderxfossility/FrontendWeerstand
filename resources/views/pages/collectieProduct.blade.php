@@ -1,6 +1,6 @@
 <x-app-layout>
-    <x-slot name="meta_title">{{ $collection->meta_title }}</x-slot>
-    <x-slot name="meta_description">{{ $collection->meta_description }}</x-slot>
+    <x-slot name="meta_title">{{ $product->meta_title }}</x-slot>
+    <x-slot name="meta_description">{{ $product->meta_description }}</x-slot>
     <div>
         <div id="top"></div>
         @if(isset($product))
