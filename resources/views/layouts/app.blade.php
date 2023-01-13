@@ -5,7 +5,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Weerstand Natuursteen') }}</title>
+        <title>
+            @if(isset($meta_title))
+                {{ $meta_title }}
+            @else
+                {{ config('app.name', 'Weerstand Natuursteen') }}
+            @endif
+        </title>
+
+        @if(isset($meta_description))
+            <meta name="description" content="{{ $meta_description }}">
+        @endif
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 

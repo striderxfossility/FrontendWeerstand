@@ -1,4 +1,6 @@
 <x-app-layout>
+    <x-slot name="meta_title">{{ $tegel->meta_title }}</x-slot>
+    <x-slot name="meta_description">{{ $tegel->meta_description }}</x-slot>
     <div>
         <div id="top"></div>
 		<div class="xl:w-3/4 m-auto" v-if="tile != null">

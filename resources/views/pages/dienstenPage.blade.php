@@ -1,4 +1,6 @@
 <x-app-layout>
+    <x-slot name="meta_title">{{ $service->meta_title }}</x-slot>
+    <x-slot name="meta_description">{{ $service->meta_description }}</x-slot>
     <div>
         <div id="top"></div>
         @if($service != null)
