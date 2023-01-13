@@ -93,7 +93,7 @@
         @endif
     </div>
 
-    <div style="background-color:rgb(82 81 73 / 43%); z-index:20; display:none;" class="w-full h-full m-auto shadow-lg rounded m-20 fixed left-0 top-0 text-white p-10 text-2xl"  id="popupOfferForm-{{ str_replace(' ', '', $name) }}"> 
+    <div style="top:0px; left:0px; background-color:rgb(82 81 73 / 43%); z-index:20; display:none;" class="w-full h-full m-auto shadow-lg rounded fixed left-0 top-0 text-white p-10 text-2xl"  id="popupOfferForm-{{ str_replace(' ', '', $name) }}"> 
         <div class="bg-white text-gray-600 w-auto p-20 px-40 m-5">
             <div class="text-4xl font-bold mb-10">Offerte voor vensterbanken aanvragen</div>
             <div class="grid grid-cols-3 text-left">
@@ -140,7 +140,7 @@
                 </div>
             </div>
 
-            <div class="fixed top-20 right-20 cursor-pointer" v-on:click="close">
+            <div class="fixed top-20 right-20 cursor-pointer" style="z-index:10" onclick="closepopup('{{ str_replace(' ', '', $name) }}')">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
@@ -155,6 +155,12 @@ function popup(mat)
 {
     document.getElementById('popupOfferForm-' + mat).style.display = "block"
     document.getElementById('mat-' + mat).value = mat
+}
+
+function closepopup(mat)
+{
+    console.log("test")
+    document.getElementById('popupOfferForm-' + mat).style.display = "none"
 }
 
 function send(mat)
