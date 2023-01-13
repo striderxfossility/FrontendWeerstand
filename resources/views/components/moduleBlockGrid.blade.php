@@ -95,7 +95,7 @@
 
     <div style="top:0px; left:0px; background-color:rgb(82 81 73 / 43%); z-index:20; display:none;" class="w-full h-full m-auto shadow-lg rounded fixed left-0 top-0 text-white p-10 text-2xl"  id="popupOfferForm-{{ str_replace(' ', '', $name) }}"> 
         <div class="bg-white text-gray-600 w-auto p-20 px-40 m-5">
-            <div class="text-4xl font-bold mb-10">Offerte voor vensterbanken aanvragen</div>
+            <div class="text-4xl font-bold mb-10">Offerte aanvragen</div>
             <div class="grid grid-cols-3 text-left">
                 <div class="p-2">
                     <div class="font-bold">Naam</div>
