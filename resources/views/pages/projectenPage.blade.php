@@ -1,6 +1,8 @@
 <x-app-layout>
-    <x-slot name="meta_title">{{ $project->meta_title }}</x-slot>
-    <x-slot name="meta_description">{{ $project->meta_description }}</x-slot>
+    @if(isset($project))
+        <x-slot name="meta_title">{{ $project->meta_title }}</x-slot>
+        <x-slot name="meta_description">{{ $project->meta_description }}</x-slot>
+    @endif
     <div>
         <div id="top"></div>
         @if($project != null)
