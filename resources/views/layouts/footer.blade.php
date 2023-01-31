@@ -33,6 +33,7 @@
             <div class="mt-4"><a href="{{ route('projecten') }}" class="text-gray-600 font-bold hover:text-gray-400">Onze projecten</a></div>
             <div class="mt-4"><a href="{{ route('contact') }}" class="text-gray-600 font-bold hover:text-gray-400">Contact</a></div>
             <div class="mt-4"><a href="{{ route('pagina', 'onderhoud-natuursteen') }}" class="text-gray-600 font-bold hover:text-gray-400">Onderhoud</a></div>
+            <div class="mt-4"><a href="{{ route('pagina', 'algemene-voorwaarden') }}" class="text-gray-600 font-bold hover:text-gray-400">Algemene voorwaarden</a></div>
         </div>
         <div class="p-4 py-10 text-center md:text-left">
             <b>Contact</b>
