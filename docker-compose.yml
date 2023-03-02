@@ -1,0 +1,36 @@
+version: "3.7"
+services:
+  app:
+    build:
+      args:
+        user: sammy
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    image: travellist
+    container_name: weer-laravel
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+    networks:
+      - weer
+
+  nginx:
+    image: nginx:alpine
+    container_name: weer-nginx
+    restart: unless-stopped
+    ports:
+      - 8004:80
+    volumes:
+      - ./:/var/www
+      - ./docker-compose/nginx:/etc/nginx/conf.d/
+    networks:
+      - weer
+
+volumes:
+    mysql_db:
+
+networks:
+  weer:
+    driver: bridge
