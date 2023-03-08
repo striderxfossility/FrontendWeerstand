@@ -33,7 +33,10 @@ class PageController extends Controller
     {
         $collection = ApiService::get('collections/' . $slug);
 
-        return view('pages.collectiePage', compact('collection'));
+        if(isset($collection))
+            return view('pages.collectiePage', compact('collection'));
+
+        abort(404);
     }
 
     public function offerte($name)
