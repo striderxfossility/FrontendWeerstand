@@ -26,7 +26,10 @@ class PageController extends Controller
     {
         $collections = ApiService::get('collections');
 
-        return view('pages.collectie', compact('collections'));
+        if(isset($collections))
+            return view('pages.collectie', compact('collections'));
+
+        abort(404);
     }
 
     public function collectiePage($slug)
@@ -48,54 +51,78 @@ class PageController extends Controller
     {
         $tegels = ApiService::get('tiles');
 
-        return view('pages.tegels', compact('tegels'));
+        if(isset($tegels))
+            return view('pages.tegels', compact('tegels'));
+           
+        abort(404);
     }
 
     public function tegelsPage($slug)
     {
         $tegel = ApiService::get('tiles/' . $slug);
 
-        return view('pages.tegelsPage', compact('tegel'));
+        if(isset($tegel))
+            return view('pages.tegelsPage', compact('tegel'));
+
+        abort(404);
     }
 
     public function diensten()
     {
         $services = ApiService::get('services');
 
-        return view('pages.diensten', compact('services'));
+        if(isset($services))
+            return view('pages.diensten', compact('services'));
+
+        abort(404);    
     }
 
     public function dienstenPage($slug)
     {
         $service = ApiService::get('services/' . $slug);
 
-        return view('pages.dienstenPage', compact('service'));
+        if(isset($service))
+            return view('pages.dienstenPage', compact('service'));
+
+        abort(404);
     }
 
     public function projecten()
     {
         $projects = ApiService::get('projects');
-        
-        return view('pages.projecten', compact('projects'));
+
+        if(isset($projects))
+            return view('pages.projecten', compact('projects'));
+
+        abort(404);
     }
 
     public function projectenPage($slug)
     {
         $project = ApiService::get('projects/' . $slug);
 
-        return view('pages.projectenPage', compact('project'));
+        if(isset($project))
+            return view('pages.projectenPage', compact('project'));
+
+        abort(404);
     }
 
     public function pagina($slug)
     {
         $project = ApiService::get('pages/' . $slug);
 
-        return view('pages.projectenPage', compact('project'));
+        if(isset($project))
+            return view('pages.projectenPage', compact('project'));
+
+        abort(404);
     }
 
     public function collectieProduct($slug, $productSlug)
     {
         $product = ApiService::get('products/' . $productSlug);
+
+        if($product == null)
+            abort(404);
 
         $images = [];
 
