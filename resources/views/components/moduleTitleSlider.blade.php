@@ -28,6 +28,13 @@
                             <div class="font-cambria text-2xl">Binnenkijken bij onze projecten</div>
                             <div class="text-md">Natuursteen in en om het huis</div>
                         </div>
+                    @else
+                        <img class="ml-2" src="https://backend.weerstandnatuursteen.nl/img/settings/bigslider/{{ $foto }}" />
+
+                        <div class="ml-2 absolute bottom-0 w-full bg-red-500 p-2" style="background-color:rgb(82 81 73 / 70%)">
+                            <div class="font-cambria text-2xl">Binnenkijken bij onze projecten</div>
+                            <div class="text-md">Natuursteen in en om het huis</div>
+                        </div>
                     @endif
                 </div>
             @endif
@@ -41,9 +48,8 @@
                         </div>
                     </a>
                 @else
-                    <a class="cursor-pointer relative" href="{{ route($matlink) }}">
-                        <img v-if="!matpic.includes('http')" :src="require('../../assets/' + matpic)" />
-                        <img v-if="matpic.includes('http')" :src="matpic" />
+                    <a class="cursor-pointer relative" href="{{ $matlink }}">
+                        <img src="https://backend.weerstandnatuursteen.nl/img/settings/bigslider/{{ $matpic }}" />
                         <div class="absolute bottom-0 text-2xl w-full p-2" style="background-color:rgb(82 81 73 / 70%)">
                             <div class="text-md font-cambria">Materiaal in dit project:<br />{{ $mat }}</div>
                         </div>
@@ -54,6 +60,15 @@
                     <div class="relative pt-4">
                         <a href="{{ route('pagina', 'over-ons') }}">
                             <img src="{{ asset('img/passie.jpg') }}" />
+                            <div class="absolute bottom-0 text-2xl w-full bg-red-500 p-2" style="background-color:rgb(82 81 73 / 70%)">
+                                <div class="text-md font-cambria">Over onze passie voor steen</div>
+                            </div>
+                        </a>
+                    </div>
+                @else
+                    <div style="padding-top:30px" class="relative pt-12">
+                        <a href="">
+                            <img src="https://backend.weerstandnatuursteen.nl/img/settings/bigslider/{{ $plaatfoto }}" />
                             <div class="absolute bottom-0 text-2xl w-full bg-red-500 p-2" style="background-color:rgb(82 81 73 / 70%)">
                                 <div class="text-md font-cambria">Over onze passie voor steen</div>
                             </div>
