@@ -17,6 +17,7 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.5",
         "newerton/google-api-php-client": "dev-main",
+        "opcodesio/log-viewer": "^2.3",
         "predis/predis": "^1.1",
         "psr/log": "^3.0",
         "pusher/pusher-php-server": "^7.0",
