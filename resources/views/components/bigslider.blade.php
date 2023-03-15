@@ -2,10 +2,10 @@
 
 <div>
     <div class="relative">
-        <div onclick="Left()" style="left:-100px; z-index:3;" class="cursor-pointer absolute h-20 w-20 bg-slate-500 hover:bg-slate-400 text-white text-center">
+        <div onclick="Left()" style="top: 200px; background: #54534a; left:-100px; z-index:3;" class="cursor-pointer absolute h-20 w-20 bg-slate-500 hover:bg-slate-400 text-white text-center">
             <i style="font-size:40px; margin-top: 18px;" class="fa-solid fa-chevron-left"></i>
         </div>
-        <div onclick="Right()" style="z-index:3; right: -105px;" class="cursor-pointer absolute h-20 w-20 bg-slate-500 hover:bg-slate-400 text-white text-center">
+        <div onclick="Right()" style="top: 200px; background: #54534a; z-index:3; right: -105px;" class="cursor-pointer absolute h-20 w-20 bg-slate-500 hover:bg-slate-400 text-white text-center">
             <i style="font-size:40px;margin-top: 18px; " class="fa-solid fa-chevron-right"></i>
         </div>
         @if(isset($router))
