@@ -35,7 +35,7 @@
             <div class="bg-fixed z-50 w-full bg-gray-50">
                 <div class="relative">
                     <div class="pt-5 pb-5">
-                        <a href="{{ route('home') }}"><img class="cursor-pointer bg-local m-auto" id="image-logo" src="{{ asset('img/logo.png') }}" alt="" /></a>
+                        <a href="{{ route('home') }}"><img class="cursor-pointer bg-local m-auto" style="height:160px;" id="image-logo" src="{{ asset('img/logo.png') }}" alt="" /></a>
                     </div>
         
                     <div class="mr-0 absolute right-5 lg:right-20 top-12" id="menu">

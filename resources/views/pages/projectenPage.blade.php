@@ -13,13 +13,29 @@
                             
                             <!--bigslider-->
                             @if($component->name == "bigslider")
-                                <ModuleTitleSlider class="mt-4 mb-12"
-                                    :images="imgarr('bigslider', component)"
-                                    :mat="component.material"
-                                    :matlink="component.material_link"
-                                    :matpic="this.api + 'img/settings/bigslider/' + component.src"
-                                    :matbpic="this.api + 'img/settings/bigslider/' + component.src1"
-                                />
+
+                                @if($component->src2 != '')
+                                    <?php
+                                        $material = $component->material;
+                                        $material_link = $component->material_link;
+                                        $material_pic = $component->src;
+                                        $material_plaat = $component->src1;
+                                        $foto = $component->src2
+                                    ?>
+
+                                    <x-moduleTitleSlider 
+                                        name="Weerstand Natuursteen"
+                                        bold="Met passie voor steen en liefde voor het ambacht, mooie dingen maken voor onze klanten. Dat is wat we bij Weerstand Natuursteen elke dag weer doen."
+                                        textA="Met deze missie werken onze ervaren vakmensen in ons familiebedrijf. In onze steenhouwerij in Urk gaan ambacht en moderne techniek hand in hand. Van de meest prachtige materialen maken wij de mooiste projecten voor klanten in onze regio Flevoland, maar natuurlijk ook ver daarbuiten."
+                                        textB="Wij ontvangen u graag in de showroom en kijken alvast uit naar een succesvolle samenwerking en prachtig eindresultaat in steen."
+                                        :images="$foto"
+                                        :mat="$material"
+                                        :matlink="$material_link"
+                                        :matpic="$material_pic"
+                                        :plaatfoto="$material_plaat"
+                                        :foto="$foto"
+                                    />
+                                @endif
                             @endif
 
                             <!--title-->
