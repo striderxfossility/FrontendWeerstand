@@ -42,7 +42,7 @@
                     0527-683725
                 </a><br/>
                 <a class="text-blue-400 hover:text-blue-300" href="mailto:info@weerstandnatuursteen.nl">info@weerstandnatuursteen.nl</a><br /><br />Vlieter 1 8321 WJ Urk<br /><br />
-            Openingstijden showroom:<br /><br />Maandag tot vrijdag<br />09:00 - 13:00 & 14:00 - 17:30<br /><br />Zaterdag<br />09:00 - 12:00</p>
+            Openingstijden showroom:<br /><br />Maandag tot vrijdag<br />09:00 - 13:00 & 14:00 - 17:30<br /><br />Zaterdag<br />09:00 - 12:00 alleen op afspraak</p>
         </div>
     </div>
 
