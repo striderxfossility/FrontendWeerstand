@@ -113,6 +113,8 @@
                     </div>
                 @endif
             </div>
+        @else
+            <div>&nbsp;<br />&nbsp;</div>
         @endif
     @endif
 </div>
