@@ -117,8 +117,8 @@
                     Onze showroom is vandaag geopend tot 17:30
                 </a>
         
-                <div href="{{ route('contact') }}" style="color:#525149; padding-top:6px" class="hidden p-2 bg-yellow-300 cursor-pointer text-white  lg:tracking-widest font-bold text-sm lg:text-lg text-center w-full">
-                    De showroom van Weerstand Natuursteen is gesloten van maandag 2 dec t/m zondag 8 januarie i.v.m. kerst
+                <div href="{{ route('contact') }}" style="color:#525149; padding-top:6px" class="p-2 bg-yellow-300 cursor-pointer text-white  lg:tracking-widest font-bold text-sm lg:text-lg text-center w-full">
+                    De showroom van Weerstand Natuursteen is gesloten van vrijdag 7 april t/m maandag 10 april i.v.m. paasdagen
                 </div>
             
             </div>
