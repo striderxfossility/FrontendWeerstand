@@ -116,9 +116,14 @@
                 <a href="{{ route('contact') }}" style="background-color:#f4eacf; color:#525149; padding-top:6px" class="hidden cursor-pointer text-white h-10 lg:tracking-widest font-bold text-sm lg:text-lg text-center w-full">
                     Onze showroom is vandaag geopend tot 17:30
                 </a>
+
+                <?php
+                    $opening_true = \App\Services\ApiService::get('opening_true');
+                    $opening_rule = \App\Services\ApiService::get('opening_rule');
+                ?>
         
-                <div href="{{ route('contact') }}" style="color:#525149; padding-top:6px" class="hidden p-2 bg-yellow-300 cursor-pointer text-white  lg:tracking-widest font-bold text-sm lg:text-lg text-center w-full">
-                    De showroom van Weerstand Natuursteen is gesloten van maandag 2 dec t/m zondag 8 januarie i.v.m. kerst
+                <div href="{{ route('contact') }}" style="color:#525149; padding-top:6px" class="{{ $opening_true == '1' ? '' : 'hidden' }} p-2 bg-yellow-300 cursor-pointer text-white  lg:tracking-widest font-bold text-sm lg:text-lg text-center w-full">
+                    {{ $opening_rule }}
                 </div>
             
             </div>

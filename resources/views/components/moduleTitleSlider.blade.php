@@ -90,8 +90,8 @@
             </div>
         </div>
     </div>
-    @if(isset($name))
-        @if(!str_contains($imgArr[0], 'http'))
+    @if(!str_contains($imgArr[0], 'http'))
+        @if(isset($name))
             <div class="shadow-lg mt-12 text-left p-8 md:p-16 bg-white">
                 <div class="block lg:hidden">
                     @if(!str_contains($imgArr[0], 'http'))
@@ -120,9 +120,9 @@
                     </div>
                 @endif
             </div>
+        @else
+            <div>&nbsp;<br />&nbsp;</div>
         @endif
-    @else
-        <div>&nbsp;<br /><br /></div>
     @endif
 </div>
 
