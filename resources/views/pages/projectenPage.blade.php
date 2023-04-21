@@ -24,10 +24,6 @@
                                     ?>
 
                                     <x-moduleTitleSlider 
-                                        name="Weerstand Natuursteen"
-                                        bold="Met passie voor steen en liefde voor het ambacht, mooie dingen maken voor onze klanten. Dat is wat we bij Weerstand Natuursteen elke dag weer doen."
-                                        textA="Met deze missie werken onze ervaren vakmensen in ons familiebedrijf. In onze steenhouwerij in Urk gaan ambacht en moderne techniek hand in hand. Van de meest prachtige materialen maken wij de mooiste projecten voor klanten in onze regio Flevoland, maar natuurlijk ook ver daarbuiten."
-                                        textB="Wij ontvangen u graag in de showroom en kijken alvast uit naar een succesvolle samenwerking en prachtig eindresultaat in steen."
                                         :images="$foto"
                                         :mat="$material"
                                         :matlink="$material_link"

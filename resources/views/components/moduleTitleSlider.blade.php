@@ -24,17 +24,21 @@
                     <img v-if="images[slideID].includes('http')" class="ml-2" :src="images[slideID]" />
                     
                     @if(!isset($mat) && !str_contains($imgArr[0], 'http'))
-                        <div class="ml-2 absolute bottom-0 w-full bg-red-500 p-2" style="background-color:rgb(82 81 73 / 70%)">
-                            <div class="font-cambria text-2xl">Binnenkijken bij onze projecten</div>
-                            <div class="text-md">Natuursteen in en om het huis</div>
-                        </div>
+                        @if(isset($name))
+                            <div class="ml-2 absolute bottom-0 w-full bg-red-500 p-2" style="background-color:rgb(82 81 73 / 70%)">
+                                <div class="font-cambria text-2xl">Binnenkijken bij onze projecten</div>
+                                <div class="text-md">Natuursteen in en om het huis</div>
+                            </div>
+                        @endif
                     @else
                         <img class="ml-2" src="https://backend.weerstandnatuursteen.nl/img/settings/bigslider/{{ $foto }}" />
 
-                        <div class="ml-2 absolute bottom-0 w-full bg-red-500 p-2" style="background-color:rgb(82 81 73 / 70%)">
-                            <div class="font-cambria text-2xl">Binnenkijken bij onze projecten</div>
-                            <div class="text-md">Natuursteen in en om het huis</div>
-                        </div>
+                        @if(isset($name))
+                            <div class="ml-2 absolute bottom-0 w-full bg-red-500 p-2" style="background-color:rgb(82 81 73 / 70%)">
+                                <div class="font-cambria text-2xl">Binnenkijken bij onze projecten</div>
+                                <div class="text-md">Natuursteen in en om het huis</div>
+                            </div>
+                        @endif
                     @endif
                 </div>
             @endif
@@ -69,9 +73,12 @@
                     <div style="padding-top:30px" class="relative pt-12">
                         <a href="">
                             <img src="https://backend.weerstandnatuursteen.nl/img/settings/bigslider/{{ $plaatfoto }}" />
-                            <div class="absolute bottom-0 text-2xl w-full bg-red-500 p-2" style="background-color:rgb(82 81 73 / 70%)">
-                                <div class="text-md font-cambria">Over onze passie voor steen</div>
-                            </div>
+                            
+                            @if(isset($name))
+                                <div class="absolute bottom-0 text-2xl w-full bg-red-500 p-2" style="background-color:rgb(82 81 73 / 70%)">
+                                    <div class="text-md font-cambria">Over onze passie voor steen</div>
+                                </div>
+                            @endif
                         </a>
                     </div>
                 @endif
@@ -83,35 +90,39 @@
             </div>
         </div>
     </div>
-    @if(!str_contains($imgArr[0], 'http'))
-        <div class="shadow-lg mt-12 text-left p-8 md:p-16 bg-white">
-            <div class="block lg:hidden">
-                @if(!str_contains($imgArr[0], 'http'))
-                    <img :src="require('../../assets/' + images[slideID])" style="top:100px; max-width:120%; width:120%; margin-left:-10%" class="m-auto" />
-                @else
-                    <img :src="images[slideID]" style="top:100px; max-width:120%; width:120%; margin-left:-10%" class="m-auto" />
+    @if(isset($name))
+        @if(!str_contains($imgArr[0], 'http'))
+            <div class="shadow-lg mt-12 text-left p-8 md:p-16 bg-white">
+                <div class="block lg:hidden">
+                    @if(!str_contains($imgArr[0], 'http'))
+                        <img :src="require('../../assets/' + images[slideID])" style="top:100px; max-width:120%; width:120%; margin-left:-10%" class="m-auto" />
+                    @else
+                        <img :src="images[slideID]" style="top:100px; max-width:120%; width:120%; margin-left:-10%" class="m-auto" />
+                    @endif
+                </div>
+
+                <h1 class="font-cambria font-bold mt-8 mb-4 text-4xl sm:text-2xl md:text-4xl text-left">{{ $name }}</h1>
+                
+                @if(isset($bold))
+                    <p class="font-cambria pt-8 font-bold text-2xl">{{ $bold }}</p>
+                @endif
+                
+                @if(isset($textA) && isset($textB))
+                    <div class="lg:grid grid-cols-2 pt-8">
+                        <p class="pt-8 text-xl lg:pr-12">{{ $textA }}</p>
+                        <p class="pt-8 text-xl lg:pl-12">{!! $textB !!}</p>
+                    </div>
+                @endif
+
+                @if(isset($textA) && !isset($textB))
+                    <div class="grid grid-cols-1 pt-8">
+                        <p class="pt-8 text-xl">{{ $textA }}</p>
+                    </div>
                 @endif
             </div>
-
-            <h1 class="font-cambria font-bold mt-8 mb-4 text-4xl sm:text-2xl md:text-4xl text-left">{{ $name }}</h1>
-            
-            @if(isset($bold))
-                <p class="font-cambria pt-8 font-bold text-2xl">{{ $bold }}</p>
-            @endif
-            
-            @if(isset($textA) && isset($textB))
-                <div class="lg:grid grid-cols-2 pt-8">
-                    <p class="pt-8 text-xl lg:pr-12">{{ $textA }}</p>
-                    <p class="pt-8 text-xl lg:pl-12">{!! $textB !!}</p>
-                </div>
-            @endif
-
-            @if(isset($textA) && !isset($textB))
-                <div class="grid grid-cols-1 pt-8">
-                    <p class="pt-8 text-xl">{{ $textA }}</p>
-                </div>
-            @endif
-        </div>
+        @endif
+    @else
+        <div>&nbsp;<br /><br /></div>
     @endif
 </div>
 
