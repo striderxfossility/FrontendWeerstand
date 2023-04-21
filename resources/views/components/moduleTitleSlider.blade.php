@@ -62,10 +62,10 @@
 
                 @if(!isset($mat) && !str_contains($imgArr[0], 'http'))
                     <div class="relative pt-4">
-                        <a href="{{ route('pagina', 'over-ons') }}">
+                        <a href="{{ asset('Natuursteen inspiratie magazine.pdf') }}">
                             <img src="{{ asset('img/passie.jpg') }}" />
                             <div class="absolute bottom-0 text-2xl w-full bg-red-500 p-2" style="background-color:rgb(82 81 73 / 70%)">
-                                <div class="text-md font-cambria">Over onze passie voor steen</div>
+                                <div class="text-md font-cambria">Download het natuursteen inspiratie magazine van Weerstand Natuursteen.</div>
                             </div>
                         </a>
                     </div>
@@ -76,7 +76,7 @@
                             
                             @if(isset($name))
                                 <div class="absolute bottom-0 text-2xl w-full bg-red-500 p-2" style="background-color:rgb(82 81 73 / 70%)">
-                                    <div class="text-md font-cambria">Over onze passie voor steen</div>
+                                    <div class="text-md font-cambria">Download het natuursteen inspiratie magazine van Weerstand Natuursteen.</div>
                                 </div>
                             @endif
                         </a>
