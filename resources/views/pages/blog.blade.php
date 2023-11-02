@@ -23,11 +23,7 @@
 
                     <x-moduleBlockGrid
                         name="{{ $blog->title }}"
-                        text="{{ $blog->text_resume }}"
-                        img="{{ \App\Services\ApiService::api() }}img/settings/blog/{{ $blog->src }}"
                         link="{{ $link }}"
-                        linkTxt="{{ $blog->link_text }}"
-                        bold="{{ $blog->bold_resume }}"
                     />
                 @endforeach
             </div>
