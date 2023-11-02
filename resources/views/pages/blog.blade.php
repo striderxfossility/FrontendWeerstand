@@ -15,12 +15,7 @@
                 @foreach ($blogs as $blog)
 
                     @php
-                        if($blog->page_link == null)
-                            $blog->page_link = '';
-
-                        if($blog->page_link != '')
-                            $link = $blog->page_link;
-                        elseif($blog->page != null)
+                        if($blog->page != null)
                             $link = '/pagina/' . $blog->page->slug;
                         else
                             $link = '/blog/' . $blog->slug;
