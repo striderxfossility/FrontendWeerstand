@@ -23,6 +23,7 @@
 
                     <x-moduleBlockGrid
                         name="{{ $blog->title }}"
+                        img=""
                         link="{{ $link }}"
                     />
                 @endforeach
