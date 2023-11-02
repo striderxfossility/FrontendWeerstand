@@ -19,7 +19,12 @@ class PageController extends Controller
 
     public function blog()
     {
-        return view('pages.contact');
+        $blogs = ApiService::get('blogs');
+
+        if(isset($blogs))
+            return view('pages.blog', compact('blogs'));
+
+        abort(404);
     }
 
     public function collectie()

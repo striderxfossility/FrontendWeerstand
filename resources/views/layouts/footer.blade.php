@@ -31,6 +31,7 @@
             <div><a href="{{ route('pagina', 'over-ons') }}" class="text-gray-600 font-bold hover:text-gray-400">Over ons</a></div>
             <div class="mt-4"><a href="{{ route('diensten') }}" class="text-gray-600 font-bold hover:text-gray-400">Onze diensten</a></div>
             <div class="mt-4"><a href="{{ route('projecten') }}" class="text-gray-600 font-bold hover:text-gray-400">Onze projecten</a></div>
+            <div class="mt-4"><a href="{{ route('blog') }}" class="text-gray-600 font-bold hover:text-gray-400">Blog</a></div>
             <div class="mt-4"><a href="{{ route('contact') }}" class="text-gray-600 font-bold hover:text-gray-400">Contact</a></div>
             <div class="mt-4"><a href="{{ route('pagina', 'onderhoud-natuursteen') }}" class="text-gray-600 font-bold hover:text-gray-400">Onderhoud</a></div>
             <div class="mt-4"><a href="{{ route('pagina', 'algemene-voorwaarden') }}" class="text-gray-600 font-bold hover:text-gray-400">Algemene voorwaarden</a></div>
