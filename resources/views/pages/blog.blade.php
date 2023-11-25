@@ -16,6 +16,7 @@
                         name="{{ $blog->title }}"
                         img="{{ \App\Services\ApiService::api() }}img/settings/blog/{{ $blog->src }}"
                         link="{{ $link }}"
+                        text="{{ $blog->resume}}"
                         linkTxt="{{ $blog->link_text }}"
                     />
                 @endforeach
