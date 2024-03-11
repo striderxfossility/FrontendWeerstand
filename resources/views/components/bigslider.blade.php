@@ -2,12 +2,12 @@
 
 <div>
     <div class="relative">
-        <div onclick="Left()" style="top: 200px; background: #54534a; left:-100px; z-index:3;" class="cursor-pointer absolute h-20 w-20 bg-slate-500 hover:bg-slate-400 text-white text-center">
+        {{-- <div onclick="Left()" style="top: 200px; background: #4C4B43; left:-100px; z-index:3;" class="cursor-pointer absolute h-20 w-20 bg-slate-500 hover:bg-slate-400 text-white text-center">
             <i style="font-size:40px; margin-top: 18px;" class="fa-solid fa-chevron-left"></i>
         </div>
-        <div onclick="Right()" style="top: 200px; background: #54534a; z-index:3; right: -105px;" class="cursor-pointer absolute h-20 w-20 bg-slate-500 hover:bg-slate-400 text-white text-center">
+        <div onclick="Right()" style="top: 200px; background: #4C4B43; z-index:3; right: -105px;" class="cursor-pointer absolute h-20 w-20 bg-slate-500 hover:bg-slate-400 text-white text-center">
             <i style="font-size:40px;margin-top: 18px; " class="fa-solid fa-chevron-right"></i>
-        </div>
+        </div> --}}
         @if(isset($router))
             @foreach ($imgArr as $key => $image)
                 <div class="mt-32" id="image-{{ $key }}" style="display:none; transform:scale(1.2, 1.2)">

@@ -9,6 +9,12 @@ class PageController extends Controller
 {
     public function home()
     {
+        $project = ApiService::get('pages/homepage');
+        $services = ApiService::get('services');
+
+        if(isset($project))
+            return view('pages.projectenPage', compact('project', 'services'));
+
         return view('pages.home');
     }
 

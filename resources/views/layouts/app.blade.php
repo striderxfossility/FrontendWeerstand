@@ -72,9 +72,14 @@
                             Vloeren
                         </a>
                     </div>
-                    <div class="text-center p-2 text-lg hover:bg-gray-100 tracking-widest">
+                    {{-- <div class="text-center p-2 text-lg hover:bg-gray-100 tracking-widest">
                         <a href="{{ route('diensten') }}" class="w-full inline-block" >
                             Diensten
+                        </a>
+                    </div> --}}
+                    <div class="text-center p-2 text-lg hover:bg-gray-100 tracking-widest">
+                        <a href="{{ route('pagina', 'over-ons') }}" class="w-full inline-block" >
+                            Showroom
                         </a>
                     </div>
                     <div class="text-center p-2 text-lg hover:bg-gray-100 tracking-widest">

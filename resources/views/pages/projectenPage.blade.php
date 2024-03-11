@@ -8,7 +8,9 @@
         @if($project != null)
             <div class="lg:w-2/3 m-auto">
                 <div class="font-cambria text-2xl relative shadow-lg mt-8 text-left p-16 bg-white">
-                    @foreach ($project->components as $component)
+                    <?php $count = 0; ?>
+                    <?php $totalComponents = count((array)$project->components) - 1; ?>
+                    @foreach ($project->components as $key => $component)
                         <div>
                             
                             <!--bigslider-->
@@ -36,9 +38,57 @@
 
                             <!--title-->
                             @if($component->name == "title")
-                                <h1 class="font-bold mt-4 mb-4 text-4xl sm:text-2xl md:text-4xl text-left">
-                                    {{ $component->title }}
-                                </h1>
+                                @if($component->title == '{$DIENSTEN}')
+                                    </div>
+                                </div>
+
+                                @php
+                                    $right = true;
+                                @endphp
+                    
+                                @foreach ($services as $service)
+                                    @php
+                                        $right = $right != true;
+                                        if($service->page_link == null)
+                                            $service->page_link = '';
+                                        
+                                        if($service->page_link != '')
+                                            $link = $service->page_link;
+                                        elseif($service->page != null)
+                                            $link = '/pagina/' . $service->page->slug;
+                                        else
+                                            $link = '/diensten/' . $service->slug;
+                                    @endphp
+                                    
+                                    @if($right)
+                                        <x-moduleBlock
+                                            name="{{ $service->title }}"
+                                            text="{{ $service->resume }}"
+                                            img="{{ \App\Services\ApiService::api() }}img/settings/service/{{ $service->src }}"
+                                            link="{{ $link }}"
+                                            linkTxt="{{ $service->link_text }}"
+                                            imgRight="{{ $right }}"
+                                        />
+                                    @else
+                                        <x-moduleBlock
+                                            name="{{ $service->title }}"
+                                            text="{{ $service->resume }}"
+                                            img="{{ \App\Services\ApiService::api() }}img/settings/service/{{ $service->src }}"
+                                            link="{{ $link }}"
+                                            linkTxt="{{ $service->link_text }}"
+                                        />
+                                    @endif
+                                @endforeach
+
+                                    @if ($count < $totalComponents)
+                                        <div class="font-cambria text-2xl relative shadow-lg mt-8 text-left p-16 bg-white">
+                                            <div>
+                                    @endif
+                                @else
+                                    <h1 class="font-bold mt-4 mb-4 text-4xl sm:text-2xl md:text-4xl text-left">
+                                        {{ $component->title }}
+                                    </h1>
+                                @endif
                             @endif
 
                             <!--h2-->
@@ -218,6 +268,8 @@
                                     @endif
                                 </div>
                             @endif
+
+                        <?php $count++; ?>
                     
                         </div>
                     @endforeach
