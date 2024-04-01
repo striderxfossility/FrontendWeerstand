@@ -133,7 +133,7 @@
             
             </div>
 
-            <div id="mainframe" onscroll="handleScroll()" style="height:calc(100% - 240px)" class="overflow-hidden bg-gray-50 w-full overflow-y-scroll">
+            <div id="mainframe" onscroll="handleScroll()" style="height:calc(100% - 200px)" class="overflow-hidden bg-gray-50 w-full overflow-y-scroll">
                 {{ $slot }}
                 @include('layouts.footer')
             </div>
@@ -158,7 +158,6 @@
 
     function handleScroll () 
     {
-        console.log('test')
         let mainframe = document.getElementById('mainframe')
         let imageLogo = document.getElementById('image-logo')
         let menu = document.getElementById('menu')
@@ -166,12 +165,12 @@
             if(screen.width > 400) {
                 imageLogo.style.height = "10rem"
                 menu.style.top = "3rem"
-                mainframe.style.height = "calc(100% - 240px)"
+                mainframe.style.height = "calc(100% - 200px)"
             }
         } else {
             imageLogo.style.height = "5rem"
             menu.style.top = "1rem"
-            mainframe.style.height = "calc(100% - 160px)"
+            mainframe.style.height = "calc(100% - 120px)"
         }
     }
 </script>

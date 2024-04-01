@@ -83,6 +83,8 @@
                                     @if ($count < $totalComponents)
                                         <div class="font-cambria text-2xl relative shadow-lg mt-8 text-left p-16 bg-white">
                                             <div>
+                                    @else 
+                                    
                                     @endif
                                 @else
                                     <h1 class="font-bold mt-4 mb-4 text-4xl sm:text-2xl md:text-4xl text-left">
@@ -274,6 +276,9 @@
                         </div>
                     @endforeach
                 </div>
+                @if (isset($homePage) && $homePage)
+                    <div><div>
+                @endif
             </div>
         @endif
     </div>
