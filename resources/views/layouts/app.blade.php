@@ -78,7 +78,7 @@
                         </a>
                     </div> --}}
                     <div class="text-center p-2 text-lg hover:bg-gray-100 tracking-widest">
-                        <a href="{{ route('pagina', 'over-ons') }}" class="w-full inline-block" >
+                        <a href="{{ route('pagina', 'showroom') }}" class="w-full inline-block" >
                             Showroom
                         </a>
                     </div>
