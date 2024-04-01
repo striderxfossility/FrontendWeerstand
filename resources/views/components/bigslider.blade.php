@@ -40,12 +40,13 @@
 <script>
     let image = 0
 
-    let intervalF = setInterval(Right, 4000)
+    let intervalF = setInterval(Right_Auto, 4000)
 
     Right_Auto()
 
     function Right_Auto()
     {
+        console.log('Right_Auto');
         if(image + 1 >= {{ count($imgArr) }}) {
             image = 0
         } else {
@@ -59,37 +60,37 @@
         document.getElementById('image-' + image).style.display = 'block';
     }
 
-    function Right()
-    {
-        clearInterval( intervalF );
+    // function Right()
+    // {
+    //     clearInterval( intervalF );
 
-        if(image + 1 >= {{ count($imgArr) }}) {
-            image = 0
-        } else {
-            image = image + 1
-        }
+    //     if(image + 1 >= {{ count($imgArr) }}) {
+    //         image = 0
+    //     } else {
+    //         image = image + 1
+    //     }
 
-        for (let index = 0; index < {{ count($imgArr) }}; index++) {
-            document.getElementById('image-' + index).style.display = 'none';
-        }
+    //     for (let index = 0; index < {{ count($imgArr) }}; index++) {
+    //         document.getElementById('image-' + index).style.display = 'none';
+    //     }
 
-        document.getElementById('image-' + image).style.display = 'block';
-    }
+    //     document.getElementById('image-' + image).style.display = 'block';
+    // }
 
-    function Left()
-    {
-        clearInterval( intervalF );
+    // function Left()
+    // {
+    //     clearInterval( intervalF );
 
-        if(image - 1 <= 0) {
-            image = {{ count($imgArr) }} - 1
-        } else {
-            image = image - 1
-        }
+    //     if(image - 1 <= 0) {
+    //         image = {{ count($imgArr) }} - 1
+    //     } else {
+    //         image = image - 1
+    //     }
 
-        for (let index = 0; index < {{ count($imgArr) }}; index++) {
-            document.getElementById('image-' + index).style.display = 'none';
-        }
+    //     for (let index = 0; index < {{ count($imgArr) }}; index++) {
+    //         document.getElementById('image-' + index).style.display = 'none';
+    //     }
 
-        document.getElementById('image-' + image).style.display = 'block';
-    }
+    //     document.getElementById('image-' + image).style.display = 'block';
+    // }
 </script>
