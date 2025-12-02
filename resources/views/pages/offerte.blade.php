@@ -50,6 +50,13 @@
                     </div>
                 </div>
 
+                <div class="text-left mt-10">
+                    <div class="p-2">
+                        <div class="font-bold">Bijlage (n)</div>
+                        <div><input id="attachments" class="p-2 rounded border-2 border-green-400 w-full" type="file" multiple /></div>
+                    </div>
+                </div>
+
                 <div class="text-right mt-10">
                     <div class="p-2 text-right">
                         <div onclick="send()" class="bg-green-500 text-white p-2 w-40 text-center cursor-pointer">Verzenden</div>
@@ -88,6 +95,7 @@ function send()
         email : document.getElementById('email').value,
         mobile : document.getElementById('mobile').value,
         description : document.getElementById('description').value,
+        attachments: document.getElementById('attachments').files,
         material: '{{ $name }}'
     }
 
@@ -123,6 +131,33 @@ function send()
         document.getElementById('mobile-error').style.display = "none"
     }
 
+    // validate attachments size (max 5mb each) total max 20mb
+    let totalSize = 0;
+    for(let i = 0; i < form.attachments.length; i++)
+    {
+        totalSize += form.attachments[i].size;
+        if(form.attachments[i].size > 5 * 1024 * 1024)
+        {
+            alert('Een van de bijlagen is groter dan 5MB. Verwijder deze en probeer het opnieuw.');
+            hasError = true;
+            break;
+        }
+
+        // validate file type
+        let allowedTypes = ['image/jpeg', 'image/png', 'application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+        if(!allowedTypes.includes(form.attachments[i].type))
+        {
+            alert('Een van de bijlagen heeft een ongeldig bestandsformaat. Toegestane formaten zijn: JPG, PNG, PDF, DOC, DOCX.');
+            hasError = true;
+            break;
+        }
+    }
+    if(totalSize > 20 * 1024 * 1024)
+    {
+        alert('De totale grootte van de bijlagen is groter dan 20MB. Verwijder enkele bijlagen en probeer het opnieuw.');
+        hasError = true;
+    }
+
     if(hasError)
     {
         return;
@@ -131,10 +166,29 @@ function send()
     document.getElementById('offerActive').style.display = "none"
     document.getElementById('loader').style.display = "block"
 
+    // scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Create FormData object to handle file uploads
+    let formData = new FormData();
+    formData.append('name', form.name);
+    formData.append('email', form.email);
+    formData.append('mobile', form.mobile);
+    formData.append('description', form.description);
+    formData.append('material', form.material);
+    
+    // Append each file
+    for(let i = 0; i < form.attachments.length; i++)
+    {
+        formData.append('attachments[]', form.attachments[i]);
+    }
+
     jQuery.ajax({
         url: "{{ \App\Services\ApiService::api() }}api/offerWindowSillForm",
         method: 'post',
-        data: {form: form},
+        data: formData,
+        processData: false,  // Important: tell jQuery not to process the data
+        contentType: false,  // Important: tell jQuery not to set contentType
         success: function(result) 
         {
             document.getElementById('offerActive').style.display = "none"
