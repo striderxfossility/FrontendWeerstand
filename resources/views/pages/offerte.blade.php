@@ -1,22 +1,45 @@
 <x-app-layout>
+    <style>
+        .text-red-500 {
+            color: #f56565;
+        }
+        /* HTML: <div class="loader"></div> */
+.loader {
+  width: 45px;
+  aspect-ratio: 1;
+  background: 
+    linear-gradient(#0000 calc(1*100%/6),#000 0 calc(3*100%/6),#0000 0) left   bottom,
+    linear-gradient(#0000 calc(2*100%/6),#000 0 calc(4*100%/6),#0000 0) center bottom,
+    linear-gradient(#0000 calc(3*100%/6),#000 0 calc(5*100%/6),#0000 0) right  bottom;
+  background-size: 20% 600%;
+  background-repeat: no-repeat;
+  animation: l3 1s infinite linear;
+}
+@keyframes l3 {
+    100% {background-position: left top,center top,right top }
+}
+    </style>
     <div>
         <div id="offerActive">
             <div class="bg-white text-gray-600 w-auto p-20 px-40 m-5">
                 <div class="text-4xl font-bold mb-10">Offerte aanvragen of idee bespreken</div>
                 <div class="grid grid-cols-3 text-left">
                     <div class="p-2">
-                        <div class="font-bold">Naam</div>
+                        <div class="font-bold">Naam*</div>
                         <div><input id="name" class="p-2 rounded border-2 border-green-400 w-full" type="text" /></div>
+                        <div id="name-error" class="text-red-500" style="display:none">Vul een naam in</div>
                     </div>
 
                     <div class="p-2">
-                        <div class="font-bold">E-Mail</div>
+                        <div class="font-bold">E-Mail*</div>
                         <div><input id="email" class="p-2 rounded border-2 border-green-400 w-full" type="text" /></div>
+                        <div id="email-error" class="text-red-500" style="display:none">Vul een geldig e-mailadres in</div>
                     </div>
 
                     <div class="p-2">
-                        <div class="font-bold">Telefoonnummer</div>
-                        <div><input id="mobile" class="p-2 rounded border-2 border-green-400 w-full" type="text" /></div>
+                        <div class="font-bold">Telefoonnummer*</div>
+                        <div><input id="mobile" class="p-2 rounded border-2 border-green-400 w-full" type="text" required /></div>
+                        <div id="mobile-error" class="text-red-500" style="display:none">Vul een telefoonnummer in</div>
                     </div>
                 </div>
 
@@ -29,16 +52,29 @@
 
                 <div class="text-right mt-10">
                     <div class="p-2 text-right">
-                        <div onclick="send()" class="bg-green-500 text-white p-2 w-40 text-center">Verzenden</div>
+                        <div onclick="send()" class="bg-green-500 text-white p-2 w-40 text-center cursor-pointer">Verzenden</div>
                     </div>
                 </div>
             </div>
         </div>
         <div id="bedankt" style="display:none" class="bg-white text-gray-600 w-auto p-20 px-40 m-5 text-2xl">
-            Bedankt voor uw aanvraag! We nemen zo spoedig mogelijk contact met je op.<br />
-            Met vriendelijke groet<br />
-            <br />
-            Team Weerstand Natuursteen
+            <div class="bg-white text-gray-600 w-auto p-20 px-40 m-5">
+                Bedankt voor uw aanvraag! We nemen zo spoedig mogelijk contact met je op.<br />
+                Met vriendelijke groet<br />
+                <br />
+                Team Weerstand Natuursteen
+            </div>
+        </div>
+        <div id="error" style="display:none" class="bg-white text-gray-600 w-auto p-20 px-40 m-5 text-2xl">
+            <div class="bg-white text-gray-600 w-auto p-20 px-40 m-5">
+                Er is iets misgegaan met het verzenden van uw aanvraag. Probeer het later nog eens.
+            </div>
+        </div>
+        <div id="loader" style="display:none" class="bg-white text-gray-600 w-auto p-20 px-40 m-5 text-2xl">
+            <div class="bg-white text-gray-600 w-auto p-20 px-40 m-5">
+                <div class="loader mx-auto"></div>
+                <div class="text-center" style="margin-top: 1rem;">Bezig met verzenden...</div>
+            </div>
         </div>
     </div>
 </x-app-layout>
@@ -55,17 +91,61 @@ function send()
         material: '{{ $name }}'
     }
 
+    // validate
+    let hasError = false;
+    if(form.name === '')
+    {
+        document.getElementById('name-error').style.display = "block"
+        hasError = true;
+    }
+    else
+    {
+        document.getElementById('name-error').style.display = "none"
+    }
+
+    if(form.email === '' || !form.email.includes('@'))
+    {
+        document.getElementById('email-error').style.display = "block"
+        hasError = true;
+    }
+    else
+    {
+        document.getElementById('email-error').style.display = "none"
+    }
+
+    if(form.mobile === '')
+    {
+        document.getElementById('mobile-error').style.display = "block"
+        hasError = true;
+    }
+    else
+    {
+        document.getElementById('mobile-error').style.display = "none"
+    }
+
+    if(hasError)
+    {
+        return;
+    }
+
+    document.getElementById('offerActive').style.display = "none"
+    document.getElementById('loader').style.display = "block"
+
     jQuery.ajax({
         url: "{{ \App\Services\ApiService::api() }}api/offerWindowSillForm",
         method: 'post',
         data: {form: form},
         success: function(result) 
         {
+            document.getElementById('offerActive').style.display = "none"
             document.getElementById('bedankt').style.display = "block"
+            document.getElementById('loader').style.display = "none"
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            alert(xhr.status);
-            alert(thrownError);
+            document.getElementById('offerActive').style.display = "none"
+            document.getElementById('error').style.display = "block"
+            document.getElementById('loader').style.display = "none"
+            console.error(thrownError);
         }
     });
 }
