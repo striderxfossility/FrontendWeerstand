@@ -1,0 +1,126 @@
+name: Build and Deploy Frontend
+
+on:
+  push:
+    branches:
+      - "**"
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: "Run deploy job"
+        required: true
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      app_image: ${{ steps.vars.outputs.app_image }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Compute image vars
+        id: vars
+        shell: bash
+        run: |
+          repo_lc="$(echo "${GITHUB_REPOSITORY}" | tr '[:upper:]' '[:lower:]')"
+          image_repo="ghcr.io/${repo_lc}/app"
+          image_tag="${GITHUB_SHA::7}"
+          app_image="${image_repo}:${image_tag}"
+
+          echo "image_repo=${image_repo}" >> "$GITHUB_OUTPUT"
+          echo "image_tag=${image_tag}" >> "$GITHUB_OUTPUT"
+          echo "app_image=${app_image}" >> "$GITHUB_OUTPUT"
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build image
+        run: |
+          docker build \
+            -f docker/app/Dockerfile \
+            -t "${{ steps.vars.outputs.app_image }}" \
+            .
+
+      - name: Push image
+        run: docker push "${{ steps.vars.outputs.app_image }}"
+
+      - name: Tag and push latest
+        if: github.ref == 'refs/heads/master'
+        run: |
+          docker tag "${{ steps.vars.outputs.app_image }}" "${{ steps.vars.outputs.image_repo }}:latest"
+          docker push "${{ steps.vars.outputs.image_repo }}:latest"
+
+  deploy:
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/master' && inputs.deploy == 'true'
+    runs-on: ubuntu-latest
+    needs:
+      - build
+    env:
+      APP_IMAGE: ${{ needs.build.outputs.app_image }}
+      K8S_NAMESPACE: ${{ vars.K8S_NAMESPACE }}
+      K8S_DEPLOYMENT_NAME: ${{ vars.K8S_DEPLOYMENT_NAME }}
+      K8S_CONTAINER_NAME: ${{ vars.K8S_CONTAINER_NAME }}
+      INGRESS_HOST: ${{ vars.INGRESS_HOST }}
+      INGRESS_CLASS: ${{ vars.INGRESS_CLASS }}
+      INGRESS_TLS_SECRET: ${{ vars.INGRESS_TLS_SECRET }}
+      CERT_MANAGER_CLUSTER_ISSUER: ${{ vars.CERT_MANAGER_CLUSTER_ISSUER }}
+      APP_ENV_SECRET: ${{ vars.APP_ENV_SECRET }}
+      CACHE_WARMER_CRON_SCHEDULE: ${{ vars.CACHE_WARMER_CRON_SCHEDULE }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v4
+        with:
+          version: v1.31.2
+
+      - name: Configure kubeconfig
+        shell: bash
+        run: |
+          mkdir -p ~/.kube
+          if [[ -n "${{ secrets.KUBE_CONFIG_B64 }}" ]]; then
+            echo "${{ secrets.KUBE_CONFIG_B64 }}" | base64 --decode > ~/.kube/config
+          elif [[ "${{ secrets.KUBE_CONFIG }}" == apiVersion:* ]]; then
+            printf '%s\n' "${{ secrets.KUBE_CONFIG }}" > ~/.kube/config
+          elif [[ -n "${{ secrets.KUBE_CONFIG }}" ]]; then
+            echo "${{ secrets.KUBE_CONFIG }}" | base64 --decode > ~/.kube/config
+          else
+            echo "Missing kubeconfig secret. Set KUBE_CONFIG_B64 (recommended) or KUBE_CONFIG." >&2
+            exit 1
+          fi
+          chmod 600 ~/.kube/config
+
+      - name: Verify Kubernetes auth
+        shell: bash
+        run: |
+          kubectl config current-context
+          kubectl -n "${K8S_NAMESPACE:-default}" auth can-i get pods
+
+      - name: Apply deployment
+        shell: bash
+        run: |
+          export K8S_NAMESPACE="${K8S_NAMESPACE:-default}"
+          export K8S_DEPLOYMENT_NAME="${K8S_DEPLOYMENT_NAME:-weerstandnatuursteen-frontend}"
+          export K8S_CONTAINER_NAME="${K8S_CONTAINER_NAME:-app}"
+          export INGRESS_HOST="${INGRESS_HOST:-weerstandnatuursteen.nl}"
+          export INGRESS_CLASS="${INGRESS_CLASS:-nginx}"
+          export INGRESS_TLS_SECRET="${INGRESS_TLS_SECRET:-weerstandnatuursteen-frontend-tls}"
+          export CERT_MANAGER_CLUSTER_ISSUER="${CERT_MANAGER_CLUSTER_ISSUER:-certmanager-cert-manager}"
+          export APP_ENV_SECRET="${APP_ENV_SECRET:-weerstandnatuursteen-frontend-env}"
+          export CACHE_WARMER_CRON_SCHEDULE="${CACHE_WARMER_CRON_SCHEDULE:-*/3 * * * *}"
+          sh scripts/deploy-k8s.sh

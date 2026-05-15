@@ -1,0 +1,14 @@
+.git
+.github
+node_modules
+vendor
+storage/logs/*.log
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+storage/debugbar/*
+bootstrap/cache/packages.php
+bootstrap/cache/services.php
+.env
+.env.*
+.DS_Store

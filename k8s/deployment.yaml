@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weerstandnatuursteen-frontend
+  labels:
+    app: weerstandnatuursteen-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: weerstandnatuursteen-frontend
+  template:
+    metadata:
+      labels:
+        app: weerstandnatuursteen-frontend
+    spec:
+      imagePullSecrets:
+        - name: ghcr-pull-secret
+      containers:
+        - name: app
+          image: ${APP_IMAGE}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 80
+          env:
+            - name: APP_ENV
+              value: production
+            - name: APP_DEBUG
+              value: "false"
+            - name: LOG_CHANNEL
+              value: stderr
+            - name: CACHE_DRIVER
+              value: file
+            - name: SESSION_DRIVER
+              value: file
+            - name: QUEUE_CONNECTION
+              value: sync
+            - name: APP_URL
+              value: https://weerstandnatuursteen.nl
+          envFrom:
+            - secretRef:
+                name: ${APP_ENV_SECRET}
+                optional: true
+          resources:
+            limits:
+              cpu: "1"
+              memory: 1024Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+          startupProbe:
+            httpGet:
+              path: /
+              port: http
+            periodSeconds: 5
+            failureThreshold: 30
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            periodSeconds: 20
+            timeoutSeconds: 3
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3

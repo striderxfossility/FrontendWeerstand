@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: weerstandnatuursteen-cache-warmer-urls
+data:
+  urls.txt: |
+    https://www.weerstandnatuursteen.nl/
+    https://weerstandnatuursteen.nl/
+    https://www.weerstandnatuursteen.nl/contact
+    https://www.weerstandnatuursteen.nl/collectie
+    https://www.weerstandnatuursteen.nl/tegels
+    https://www.weerstandnatuursteen.nl/diensten
+    https://www.weerstandnatuursteen.nl/projecten
+    https://www.weerstandnatuursteen.nl/blog
+    https://www.weerstandnatuursteen.nl/pagina/over-ons
+    https://www.weerstandnatuursteen.nl/pagina/showroom

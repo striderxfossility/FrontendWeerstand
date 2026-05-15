@@ -1,0 +1,67 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: weerstandnatuursteen-cache-warmer
+spec:
+  schedule: "${CACHE_WARMER_CRON_SCHEDULE}"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          volumes:
+            - name: warmer-urls
+              configMap:
+                name: weerstandnatuursteen-cache-warmer-urls
+          containers:
+            - name: warmer
+              image: curlimages/curl:8.8.0
+              command: ["/bin/sh", "-c"]
+              args:
+                - |
+                  set -eu
+
+                  URLS_FILE="/etc/cache-warmer/urls.txt"
+
+                  if [ ! -f "$URLS_FILE" ]; then
+                    echo "missing URL list: $URLS_FILE" >&2
+                    exit 1
+                  fi
+
+                  while IFS= read -r url
+                  do
+                    case "$url" in
+                      ""|\#*) continue ;;
+                    esac
+
+                    echo "warming $url"
+
+                    for encoding in \
+                      "gzip" \
+                      "gzip, deflate, br" \
+                      "gzip, deflate, br, zstd" \
+                      "br, gzip, deflate" \
+                      "br, gzip, deflate, zstd"
+                    do
+                      label="$encoding"
+
+                      echo "  variant=$label prime"
+                      curl -sS -D - -o /dev/null \
+                        -H "Accept-Encoding: $encoding" \
+                        -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36" \
+                        "$url" | grep -iE 'HTTP/|x-cache|content-encoding|vary'
+
+                      echo "  variant=$label verify"
+                      curl -sS -D - -o /dev/null \
+                        -H "Accept-Encoding: $encoding" \
+                        -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36" \
+                        "$url" | grep -iE 'HTTP/|x-cache|content-encoding|vary'
+                    done
+                  done < "$URLS_FILE"
+              volumeMounts:
+                - name: warmer-urls
+                  mountPath: /etc/cache-warmer
+                  readOnly: true

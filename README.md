@@ -62,3 +62,53 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Kubernetes Deployment
+
+This repository includes:
+
+- GitHub workflow: `.github/workflows/deploy.yml`
+- Deploy script: `scripts/deploy-k8s.sh`
+- Kubernetes manifests: `k8s/`
+- Production image Dockerfile: `docker/app/Dockerfile`
+
+### Image build
+
+On every push, GitHub Actions builds and pushes:
+
+- `ghcr.io/<owner>/<repo>/app:<short-sha>`
+- `ghcr.io/<owner>/<repo>/app:latest` (only on `master`)
+
+### Manual deploy
+
+Run the workflow manually (`workflow_dispatch`) on `master` with `deploy=true`.
+
+Required GitHub secret:
+
+- `KUBE_CONFIG_B64` (recommended) or `KUBE_CONFIG`
+
+Recommended GitHub repository variables:
+
+- `K8S_NAMESPACE`
+- `K8S_DEPLOYMENT_NAME`
+- `K8S_CONTAINER_NAME`
+- `INGRESS_HOST`
+- `INGRESS_CLASS`
+- `INGRESS_TLS_SECRET`
+- `CERT_MANAGER_CLUSTER_ISSUER`
+- `APP_ENV_SECRET`
+- `CACHE_WARMER_CRON_SCHEDULE`
+
+### Laravel environment secret
+
+The deployment can read app env vars from a Kubernetes Secret (`APP_ENV_SECRET`, default `weerstandnatuursteen-frontend-env`):
+
+```bash
+kubectl -n <namespace> create secret generic weerstandnatuursteen-frontend-env \
+  --from-literal=APP_NAME="Weerstand Natuursteen Frontend" \
+  --from-literal=APP_KEY="<base64:...>" \
+  --from-literal=APP_BACKEND_URL="https://backend.weerstandnatuursteen.nl/" \
+  --from-literal=MAIL_MAILER="smtp"
+```
+
+This project intentionally does not include queue-worker or Laravel scheduler resources.
