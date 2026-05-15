@@ -14,7 +14,6 @@ INGRESS_HOST="${INGRESS_HOST:-weerstandnatuursteen.nl}"
 INGRESS_CLASS="${INGRESS_CLASS:-nginx}"
 INGRESS_TLS_SECRET="${INGRESS_TLS_SECRET:-weerstandnatuursteen-frontend-tls}"
 CERT_MANAGER_CLUSTER_ISSUER="${CERT_MANAGER_CLUSTER_ISSUER:-certmanager-cert-manager}"
-APP_ENV_SECRET="${APP_ENV_SECRET:-weerstandnatuursteen-frontend-env}"
 CACHE_WARMER_CRON_SCHEDULE="${CACHE_WARMER_CRON_SCHEDULE:-*/3 * * * *}"
 
 tmp_deployment_manifest="$(mktemp)"
@@ -25,13 +24,17 @@ tmp_certificate_manifest="$(mktemp)"
 tmp_cache_warmer_manifest="$(mktemp)"
 trap 'rm -f "$tmp_deployment_manifest" "$tmp_service_manifest" "$tmp_cache_urls_manifest" "$tmp_ingress_manifest" "$tmp_certificate_manifest" "$tmp_cache_warmer_manifest"' EXIT
 
+if ! kubectl -n "$K8S_NAMESPACE" get secret weerstandnatuursteen-frontend-urls >/dev/null 2>&1; then
+  echo "Missing secret: weerstandnatuursteen-frontend-urls in namespace $K8S_NAMESPACE" >&2
+  echo "Create/apply it first (for example from k8s/app-urls-secret.yaml)." >&2
+  exit 1
+fi
+
 cp k8s/cache-warmer-urls-configmap.yaml "$tmp_cache_urls_manifest"
 kubectl -n "$K8S_NAMESPACE" apply -f "$tmp_cache_urls_manifest"
 
 sed \
   -e "s|\${APP_IMAGE}|$APP_IMAGE|g" \
-  -e "s|\${INGRESS_HOST}|$INGRESS_HOST|g" \
-  -e "s|\${APP_ENV_SECRET}|$APP_ENV_SECRET|g" \
   k8s/deployment.yaml > "$tmp_deployment_manifest"
 kubectl -n "$K8S_NAMESPACE" apply -f "$tmp_deployment_manifest"
 

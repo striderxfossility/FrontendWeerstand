@@ -78,7 +78,6 @@ jobs:
       INGRESS_CLASS: ${{ vars.INGRESS_CLASS }}
       INGRESS_TLS_SECRET: ${{ vars.INGRESS_TLS_SECRET }}
       CERT_MANAGER_CLUSTER_ISSUER: ${{ vars.CERT_MANAGER_CLUSTER_ISSUER }}
-      APP_ENV_SECRET: ${{ vars.APP_ENV_SECRET }}
       CACHE_WARMER_CRON_SCHEDULE: ${{ vars.CACHE_WARMER_CRON_SCHEDULE }}
     steps:
       - name: Checkout
@@ -121,6 +120,5 @@ jobs:
           export INGRESS_CLASS="${INGRESS_CLASS:-nginx}"
           export INGRESS_TLS_SECRET="${INGRESS_TLS_SECRET:-weerstandnatuursteen-frontend-tls}"
           export CERT_MANAGER_CLUSTER_ISSUER="${CERT_MANAGER_CLUSTER_ISSUER:-certmanager-cert-manager}"
-          export APP_ENV_SECRET="${APP_ENV_SECRET:-weerstandnatuursteen-frontend-env}"
           export CACHE_WARMER_CRON_SCHEDULE="${CACHE_WARMER_CRON_SCHEDULE:-*/3 * * * *}"
           sh scripts/deploy-k8s.sh

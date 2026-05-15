@@ -37,10 +37,18 @@ spec:
             - name: QUEUE_CONNECTION
               value: sync
             - name: APP_URL
-              value: https://weerstandnatuursteen.nl
+              valueFrom:
+                secretKeyRef:
+                  name: weerstandnatuursteen-frontend-urls
+                  key: APP_URL
+            - name: APP_BACKEND_URL
+              valueFrom:
+                secretKeyRef:
+                  name: weerstandnatuursteen-frontend-urls
+                  key: APP_BACKEND_URL
           envFrom:
             - secretRef:
-                name: ${APP_ENV_SECRET}
+                name: weerstandnatuursteen-frontend-env
                 optional: true
           resources:
             limits:
