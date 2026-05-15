@@ -13,11 +13,15 @@ class Controller extends BaseController
 
     public function __construct()
     {
-        start_measure('controller','Controller');
+        if (function_exists('start_measure')) {
+            start_measure('controller', 'Controller');
+        }
     }
 
-    public function __destructors()
+    public function __destruct()
     {
-        stop_measure('controller');
+        if (function_exists('stop_measure')) {
+            stop_measure('controller');
+        }
     }
 }
