@@ -103,20 +103,10 @@ Recommended GitHub repository variables:
 This deployment expects you to create/manage this Kubernetes Secret yourself:
 
 - Secret name: `weerstandnatuursteen-frontend-urls`
+- `APP_KEY=base64:...`
 - `APP_URL=https://weerstandnatuursteen.nl`
 - `APP_BACKEND_URL=https://backend.weerstandnatuursteen.nl/`
 
 You can use `k8s/app-urls-secret.yaml` as a starter manifest, but `scripts/deploy-k8s.sh` will not apply secrets.
-
-### Laravel environment secret (optional)
-
-The deployment can read extra app env vars from Kubernetes Secret `weerstandnatuursteen-frontend-env`:
-
-```bash
-kubectl -n <namespace> create secret generic weerstandnatuursteen-frontend-env \
-  --from-literal=APP_NAME="Weerstand Natuursteen Frontend" \
-  --from-literal=APP_KEY="<base64:...>" \
-  --from-literal=MAIL_MAILER="smtp"
-```
 
 This project intentionally does not include queue-worker or Laravel scheduler resources.

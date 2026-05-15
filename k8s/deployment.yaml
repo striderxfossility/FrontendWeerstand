@@ -26,6 +26,11 @@ spec:
           env:
             - name: APP_ENV
               value: production
+            - name: APP_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: weerstandnatuursteen-frontend-urls
+                  key: APP_KEY
             - name: APP_DEBUG
               value: "false"
             - name: LOG_CHANNEL
@@ -46,10 +51,6 @@ spec:
                 secretKeyRef:
                   name: weerstandnatuursteen-frontend-urls
                   key: APP_BACKEND_URL
-          envFrom:
-            - secretRef:
-                name: weerstandnatuursteen-frontend-env
-                optional: true
           resources:
             limits:
               cpu: "1"

@@ -30,6 +30,11 @@ if ! kubectl -n "$K8S_NAMESPACE" get secret weerstandnatuursteen-frontend-urls >
   exit 1
 fi
 
+if [ -z "$(kubectl -n "$K8S_NAMESPACE" get secret weerstandnatuursteen-frontend-urls -o jsonpath='{.data.APP_KEY}' 2>/dev/null)" ]; then
+  echo "Secret weerstandnatuursteen-frontend-urls is missing key APP_KEY in namespace $K8S_NAMESPACE" >&2
+  exit 1
+fi
+
 cp k8s/cache-warmer-urls-configmap.yaml "$tmp_cache_urls_manifest"
 kubectl -n "$K8S_NAMESPACE" apply -f "$tmp_cache_urls_manifest"
 
