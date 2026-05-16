@@ -8,6 +8,9 @@ spec:
   secretName: ${INGRESS_TLS_SECRET}
   dnsNames:
     - weerstandnatuursteen.nl
+    - www.weerstandnatuursteen.nl
+    - backend.weerstandnatuursteen.nl
+    - www.backend.weerstandnatuursteen.nl
   issuerRef:
     kind: ClusterIssuer
     name: ${CERT_MANAGER_CLUSTER_ISSUER}
