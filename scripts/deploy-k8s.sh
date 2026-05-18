@@ -24,12 +24,6 @@ tmp_certificate_manifest="$(mktemp)"
 tmp_cache_warmer_manifest="$(mktemp)"
 trap 'rm -f "$tmp_deployment_manifest" "$tmp_service_manifest" "$tmp_cache_urls_manifest" "$tmp_ingress_manifest" "$tmp_certificate_manifest" "$tmp_cache_warmer_manifest"' EXIT
 
-if ! kubectl -n "$K8S_NAMESPACE" get secret weerstandnatuursteen-frontend-urls >/dev/null 2>&1; then
-  echo "Missing secret: weerstandnatuursteen-frontend-urls in namespace $K8S_NAMESPACE" >&2
-  echo "Create/apply it first (for example from k8s/app-urls-secret.yaml)." >&2
-  exit 1
-fi
-
 if [ -z "$(kubectl -n "$K8S_NAMESPACE" get secret weerstandnatuursteen-frontend-urls -o jsonpath='{.data.APP_KEY}' 2>/dev/null)" ]; then
   echo "Secret weerstandnatuursteen-frontend-urls is missing key APP_KEY in namespace $K8S_NAMESPACE" >&2
   exit 1
