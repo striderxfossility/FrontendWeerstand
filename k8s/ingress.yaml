@@ -43,8 +43,6 @@ spec:
     - hosts:
         - weerstandnatuursteen.nl
         - www.weerstandnatuursteen.nl
-        - backend.weerstandnatuursteen.nl
-        - www.backend.weerstandnatuursteen.nl
       secretName: ${INGRESS_TLS_SECRET}
   rules:
     - host: weerstandnatuursteen.nl
@@ -65,25 +63,5 @@ spec:
             backend:
               service:
                 name: weerstandnatuursteen-frontend
-                port:
-                  number: 80
-    - host: backend.weerstandnatuursteen.nl
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: weerstandnatuursteen-backend
-                port:
-                  number: 80
-    - host: www.backend.weerstandnatuursteen.nl
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: weerstandnatuursteen-backend
                 port:
                   number: 80
